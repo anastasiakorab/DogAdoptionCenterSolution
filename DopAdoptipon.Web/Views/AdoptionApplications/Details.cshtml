@@ -1,0 +1,53 @@
+﻿@model DopAdoption.Domain.DomainModels.AdoptionApplication
+
+@{
+    ViewData["Title"] = "Application Details";
+}
+
+<h2 style="
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff7f50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+">
+    Application Details
+</h2>
+
+<div style="
+    background-color: rgba(255,239,230,0.9);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+">
+    <div style="display:flex; gap:2rem; flex-wrap: wrap;">
+        <div style="flex:1; min-width:250px;">
+            <h4 style="font-weight:600; margin-bottom:0.5rem;">Dog</h4>
+            <p>@Model.Dog?.Name</p>
+        </div>
+        <div style="flex:1; min-width:250px;">
+            <h4 style="font-weight:600; margin-bottom:0.5rem;">Adopter</h4>
+            <p>@Model.Adopter?.FullName</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Created On (UTC)</dt>
+        <dd class="col-sm-9">@Model.CreatedOn.ToString("yyyy-MM-dd HH:mm")</dd>
+
+        <dt class="col-sm-3">Notes</dt>
+        <dd class="col-sm-9">@Model.Notes</dd>
+    </dl>
+
+    <div style="margin-top:1rem;">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background-color:#ff7f50; color:#fff;">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DopAdoption.Domain.DomainModels.Breed>
+
+@{
+    ViewData["Title"] = "Breeds";
+}
+
+<h2 style="
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff7f50;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+">
+    Breeds
+</h2>
+
+<p>
+    <a asp-action="Create" class="btn" style="background-color: #ff7f50; color: #fff;">Create New Breed</a>
+</p>
+
+<table class="table" style="background-color: rgba(255,239,230,0.9); border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.05);">
+    <thead>
+        <tr>
+            <th>Breed</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn" style="border: 2px solid #ff7f50; color: #ff7f50;">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="border: 2px solid #ff7f50; color: #ff7f50;">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

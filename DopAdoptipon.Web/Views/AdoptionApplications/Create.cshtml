@@ -1,0 +1,61 @@
+﻿@model DopAdoption.Domain.DomainModels.AdoptionApplication
+
+@{
+    ViewData["Title"] = "Create Application";
+}
+
+<h2 style="
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff7f50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+">
+    Create Application
+</h2>
+
+<form asp-action="Create" method="post" style="
+    background-color: rgba(255,239,230,0.9);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="DogId" class="form-label">Dog</label>
+        <select asp-for="DogId" class="form-select" asp-items="ViewBag.DogId"></select>
+        <span asp-validation-for="DogId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AdopterId" class="form-label">Adopter</label>
+        <select asp-for="AdopterId" class="form-select" asp-items="ViewBag.AdopterId"></select>
+        <span asp-validation-for="AdopterId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" class="form-select">
+            <option>Pending</option>
+            <option>Approved</option>
+            <option>Rejected</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Notes" class="form-label"></label>
+        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn" style="background-color: #ff7f50; color: #fff;">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

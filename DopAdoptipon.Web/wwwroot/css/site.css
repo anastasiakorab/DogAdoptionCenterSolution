@@ -1,0 +1,285 @@
+﻿/* ————— Theme ————— */
+:root {
+    --paw-bg1: #fff7f0;
+    --paw-bg2: #fff;
+    --brand: #ff7f50; /* coral (warm) */
+    --brand-dark: #ee6e3e;
+    --accent: #2a9d8f; /* teal */
+    --ink: #1f2937;
+    --muted: #6b7280;
+    --card: #ffffff;
+    --ring: rgba(255,127,80,.35);
+    --shadow: 0 10px 20px rgba(0,0,0,.08);
+    --radius: 18px;
+    --radius-sm: 12px;
+    --radius-lg: 24px;
+    --focus: 0 0 0 4px var(--ring);
+    --brand-grad: linear-gradient(135deg, #ff9a6b 0%, #ff7f50 40%, #ff6a3d 100%);
+}
+
+/* ————— Global ————— */
+html, body {
+    height: 100%;
+}
+
+/* → Сменето тело за wallpaper */
+/* Само цела позадина со твојата слика */
+body {
+    background-image: url("/img/paws.jpg"); /* патеката до твојата слика во wwwroot/img */
+    background-repeat: no-repeat;
+    background-size: cover; /* за да покрие цел екран */
+    background-position: center; /* центрирање на сликата */
+    background-attachment: fixed; /* останува фиксирана при скролирање */
+}
+}
+
+    /* Simple, high-contrast mode (за читливост) */
+    body.simple {
+        background: #f7f7f8;
+    }
+
+        body.simple .hero {
+            background: #fff !important;
+            color: #1f2937 !important;
+            border: 1px solid #eee;
+        }
+
+        body.simple .navbar-brand {
+            background: none !important;
+            color: #ff7f50 !important;
+        }
+
+        body.simple .nav-link {
+            color: #1f2937 !important;
+        }
+
+            body.simple .nav-link:hover {
+                color: #ee6e3e !important;
+            }
+
+/* ————— Navbar ————— */
+.navbar {
+    backdrop-filter: saturate(1.2) blur(4px);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: .2px;
+    background: var(--brand-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: #374151 !important;
+}
+
+    .nav-link:hover {
+        color: var(--brand-dark) !important;
+    }
+
+/* ————— Buttons ————— */
+.btn-paw {
+    --bg: var(--brand);
+    --bg-h: var(--brand-dark);
+    color: #fff !important;
+    background: var(--bg);
+    border: none;
+    border-radius: 999px;
+    padding: .6rem 1.1rem;
+    box-shadow: var(--shadow);
+}
+
+    .btn-paw:hover {
+        background: var(--bg-h);
+    }
+
+.btn-outline-paw {
+    color: var(--brand-dark) !important;
+    border: 2px solid var(--brand);
+    border-radius: 999px;
+    background: transparent;
+}
+
+    .btn-outline-paw:hover {
+        color: #fff !important;
+        background: var(--brand);
+        border-color: var(--brand);
+    }
+
+/* ————— Cards ————— */
+.card-dog {
+    border: 0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform .12s ease, box-shadow .12s ease;
+    background: var(--card);
+}
+
+    .card-dog:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px rgba(0,0,0,.12);
+    }
+
+    .card-dog img {
+        object-fit: cover;
+        height: 220px;
+    }
+
+    .card-dog .title {
+        font-weight: 800;
+        font-size: 1.1rem;
+    }
+
+    .card-dog .meta {
+        color: var(--muted);
+    }
+
+/* ————— Badges ————— */
+.badge-status {
+    padding: .45rem .7rem;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.status-Available {
+    background: rgba(42,157,143,.1);
+    color: #227c71;
+}
+
+.status-Reserved {
+    background: rgba(255,193,7,.15);
+    color: #ad7a00;
+}
+
+.status-Adopted {
+    background: rgba(239,68,68,.12);
+    color: #b91c1c;
+}
+
+/* ————— Forms ————— */
+.form-control, .form-select {
+    border-radius: var(--radius-sm);
+    border: 1px solid #e5e7eb;
+}
+
+    .form-control:focus, .form-select:focus {
+        box-shadow: var(--focus);
+        border-color: #ffb098;
+    }
+
+/* ————— Alerts ————— */
+.alert {
+    border: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+/* ————— Hero (мал) ————— */
+.hero {
+    border-radius: var(--radius-lg);
+    background: radial-gradient(1200px 400px at 100% 20%, rgba(255,255,255,.65), transparent 60%), var(--brand-grad);
+    color: #fff;
+    padding: 2.25rem;
+    box-shadow: var(--shadow);
+}
+
+/* ————— Hero (голем со background) ————— */
+.hero-lg {
+    position: relative;
+    min-height: 380px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0,0,0,.12);
+    display: grid;
+    align-items: end;
+    padding: 2rem;
+    color: #fff;
+}
+
+    .hero-lg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 80%, rgba(0,0,0,.75) 100%), url("/img/hero.jpg") center/cover no-repeat;
+        filter: saturate(1.05);
+    }
+
+    .hero-lg > * {
+        position: relative;
+        z-index: 1;
+    }
+
+/* ————— Feature & Split ————— */
+.feature-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.08);
+    padding: 1.25rem;
+    height: 100%;
+}
+
+    .feature-card .title {
+        font-weight: 800;
+        margin-bottom: .35rem;
+    }
+
+.split-card {
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,.08);
+}
+
+    .split-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+/* ————— Footer ————— */
+.site-footer {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+
+    .site-footer a {
+        color: #ffb48f;
+        text-decoration: none;
+    }
+
+        .site-footer a:hover {
+            color: #ffd5c5;
+            text-decoration: underline;
+        }
+
+/* Utility */
+.btn-group-gap > * {
+    margin-right: .5rem;
+}
+
+    .btn-group-gap > *:last-child {
+        margin-right: 0;
+    }
+
+/* Smaller, responsive height for the bottom split image */
+.split-photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .split-photo {
+        height: 300px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .split-photo {
+        height: 360px;
+    }
+}

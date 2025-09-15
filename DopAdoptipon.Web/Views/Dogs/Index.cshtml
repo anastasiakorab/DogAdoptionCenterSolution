@@ -1,0 +1,77 @@
+﻿@model IEnumerable<DopAdoption.Domain.DomainModels.Dog>
+
+@{
+    ViewData["Title"] = "Dogs";
+}
+
+<h2 style="
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff7f50;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+">
+    Dogs
+</h2>
+
+<p>
+    <a asp-action="Create" class="btn" style="background-color: #ff7f50; color: #fff;">Create New Dog</a>
+</p>
+
+<form asp-action="RandomPhoto" method="post" class="mb-3">
+    <button type="submit" class="btn" style="border: 2px solid #ff7f50; color: #ff7f50;">Random Photo (API)</button>
+</form>
+
+@if (TempData["RandomUrl"] != null)
+{
+    <div class="card mb-4" style="max-width:720px; background-color: rgba(255,239,230,0.9); border-radius:12px;">
+        <img src="@TempData["RandomUrl"]" class="card-img-top" alt="Random Dog" />
+        <div class="card-body">
+            <p class="mb-1"><strong>TypeOfDog:</strong> @TempData["RandomBreed"]</p>
+            <p class="mb-1"><strong>DogVariety:</strong> @(TempData["RandomSubBreed"] ?? "(none)")</p>
+            <p class="mb-0"><strong>Source:</strong> @TempData["RandomProvider"]</p>
+        </div>
+    </div>
+}
+
+<table class="table" style="background-color: rgba(255,239,230,0.9); border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.05);">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Status</th>
+            <th>Breed</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dog in Model)
+        {
+            <tr>
+                <td>@dog.Name</td>
+                <td>@dog.Age</td>
+                <td>@dog.Sex</td>
+                <td>@dog.Status</td>
+                <td>@dog.Breed?.Name</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@dog.Id" class="btn" style="border: 2px solid #ff7f50; color: #ff7f50;">Details</a>
+                    <a asp-action="Edit" asp-route-id="@dog.Id" class="btn" style="border: 2px solid #ff7f50; color: #ff7f50;">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@dog.Id" class="btn btn-danger">Delete</a>
+
+                    @if (dog.Status == "Available")
+                    {
+                        <form asp-action="MarkAsAdopted" asp-route-id="@dog.Id" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success">Mark as Adopted</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

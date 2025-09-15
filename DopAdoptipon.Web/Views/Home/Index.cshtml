@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var isAuth = (User.Identity?.IsAuthenticated ?? false);
+}
+
+
+<div class="hero-lg my-4">
+    <div class="hero-inner">
+        <h1 class="display-5 fw-bold mb-2">Adopt a dog, change a life 🐶</h1>
+        <p class="lead mb-3">
+            Browse loving dogs, send an application, and welcome your new best friend home.
+        </p>
+
+        <div class="btn-group-gap mb-2">
+            <a asp-controller="Dogs" asp-action="Index" class="btn btn-paw">Browse Dogs</a>
+            <a asp-controller="Breeds" asp-action="Index" class="btn btn-outline-paw">Explore Breeds</a>
+        </div>
+
+        @if (!isAuth)
+        {
+            <div><small class="text-light">Sign in to submit adoption applications.</small></div>
+        }
+    </div>
+</div>
+
+
+<div class="why-adopt-section text-center mb-5" style="background-color:#fff5f0; padding:3rem 1rem; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,0.05);">
+    <h3 class="fw-bold mb-2" style="color:#ff7f50; font-size:2rem; text-shadow:1px 1px 3px rgba(0,0,0,0.1);">Why adopt with DogsCenter</h3>
+    <p class="text-muted mb-0" style="font-size:1.2rem; line-height:1.6; max-width:600px; margin:0 auto;">
+        Simple process, trusted info, caring support.
+    </p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 g-3 mb-4">
+    <div class="col">
+        <div class="feature-card text-center">
+            <div class="icon-badge mb-2">🛡️</div>
+            <div class="title">Verified dogs</div>
+            <div class="text-muted small">Clear status and breed information.</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="feature-card text-center">
+            <div class="icon-badge mb-2">⚡</div>
+            <div class="title">Fast process</div>
+            <div class="text-muted small">Apply online in just a few clicks.</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="feature-card text-center">
+            <div class="icon-badge mb-2">🐾</div>
+            <div class="title">Easy browsing</div>
+            <div class="text-muted small">Filter by breed, age and status.</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="feature-card text-center">
+            <div class="icon-badge mb-2">❤️</div>
+            <div class="title">Caring team</div>
+            <div class="text-muted small">We’re here to help every step.</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="split-card mb-4" style="background-color:#fff8f2; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,0.08); overflow:hidden;">
+    <div class="row g-0 align-items-center">
+        <div class="col-lg-6 p-5">
+            <h3 class="fw-bold mb-3" style="color:#ff7f50; font-size:2rem; text-shadow:1px 1px 3px rgba(0,0,0,0.1);">Ready when you are</h3>
+            <p class="text-muted mb-4" style="font-size:1.1rem; line-height:1.6;">
+                Learn about each dog, check availability and send your application.
+                We’ll review it quickly and get back to you.
+            </p>
+            <ul class="list-unstyled text-muted mb-4" style="font-size:1rem; line-height:1.6;">
+                <li>• <strong>Transparent statuses:</strong> Available, Reserved, Adopted</li>
+                <li>• Clear adopter details & notes</li>
+                <li>• Safe and friendly process</li>
+            </ul>
+            <a asp-controller="Dogs" asp-action="Index" class="btn btn-paw" style="padding:0.65rem 1.5rem; font-size:1rem;">Start browsing</a>
+        </div>
+        <div class="col-lg-6">
+            <img src="~/img/pawcinja.jpg" alt="Two puppies"
+                 class="w-100" style="height:350px; object-fit:cover;">
+        </div>
+    </div>
+</div>

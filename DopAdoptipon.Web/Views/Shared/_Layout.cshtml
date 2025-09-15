@@ -1,0 +1,206 @@
+﻿@using DopAdoption.Domain
+@using DopAdoption.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DogsCenter</title>
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+   
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DopAdoptipon.Web.styles.css" asp-append-version="true" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fef9f5;
+            color: #333;
+        }
+
+        .navbar {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #ff7f50 !important;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            color: #ff7f50 !important;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #ee6e3e !important;
+        }
+
+        .navbar-text {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-right: 0.5rem;
+        }
+
+        .btn-paw {
+            background-color: #ff7f50;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-paw:hover {
+            background-color: #ee6e3e;
+            color: #fff;
+        }
+
+        .btn-outline-paw {
+            border: 2px solid #ff7f50;
+            color: #ff7f50;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-paw:hover {
+            background-color: #ff7f50;
+            color: #fff;
+        }
+
+        footer {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer a {
+            color: #ff7f50;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-lg {
+            background-image: url('~/img/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 5rem 2rem;
+            border-radius: 12px;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-lg h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .hero-lg p {
+            font-size: 1.25rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-card .title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ff7f50;
+        }
+
+        .split-card img.split-photo {
+            border-radius: 12px;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">🐾 DogsCenter</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Dogs" asp-action="Index">Dogs</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Breeds" asp-action="Index">Breeds</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Adopters" asp-action="Index">Adopters</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="AdoptionApplications" asp-action="Index">Applications</a></li>
+                        }
+                    </ul>
+
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        var user = await UserManager.GetUserAsync(User);
+                        var firstName = user?.FirstName ?? "User";
+
+                        <span class="navbar-text">Hello @firstName!</span>
+
+                        <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <partial name="_LoginPartial" />
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container flex-grow-1 my-4">
+        <main role="main">
+            @await Html.PartialAsync("_Alerts")
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="mt-auto py-3 border-top">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <div>© @DateTime.Now.Year · DogsCenter</div>
+            <div>
+                <a asp-controller="Home" asp-action="Privacy" class="me-3">Privacy</a>
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

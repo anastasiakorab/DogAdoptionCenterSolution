@@ -1,0 +1,41 @@
+﻿@model DopAdoption.Domain.DomainModels.Adopter
+
+@{
+    ViewData["Title"] = "Delete Adopter";
+}
+
+<h2 style="
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff7f50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+">
+    Delete Adopter
+</h2>
+
+<div class="card mb-4" style="
+    background-color: rgba(255, 239, 230, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    padding: 1rem;
+">
+    <dl class="row">
+        <dt class="col-sm-2">Full Name</dt>
+        <dd class="col-sm-10">@Model.FullName</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Phone</dt>
+        <dd class="col-sm-10">@Model.Phone</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

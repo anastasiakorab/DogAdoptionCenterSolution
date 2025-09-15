@@ -1,0 +1,79 @@
+﻿@model DopAdoption.Domain.DomainModels.Dog
+@{
+    ViewData["Title"] = "Create Dog";
+
+    
+    var ageList = Enumerable.Range(0, 21)
+        .Select(x => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+        {
+            Text = x == 0 ? "Puppy" : x.ToString(),
+            Value = x.ToString()
+        }).ToList();
+    ViewBag.Ages = ageList;
+}
+
+
+<h2 style="font-family: 'Poppins', sans-serif;
+           font-weight: 600;
+           font-size: 1.6rem;
+           letter-spacing: 0.5px;
+           color: #ff7f50;
+           margin-top: 2rem;
+           margin-bottom: 1rem;">
+    Create Dog
+</h2>
+
+
+<div style="background-color: rgba(255, 239, 230, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;">
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"
+                   style="font-family: 'Nunito', sans-serif; font-weight: 500; letter-spacing: 0.3px; font-size: 1rem;"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Age" class="form-label"
+                   style="font-family: 'Nunito', sans-serif; font-weight: 500; letter-spacing: 0.3px; font-size: 1rem;"></label>
+            <select asp-for="Age" class="form-select" asp-items="ViewBag.Ages"></select>
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Sex" class="form-label"
+                   style="font-family: 'Nunito', sans-serif; font-weight: 500; letter-spacing: 0.3px; font-size: 1rem;"></label>
+            <select asp-for="Sex" class="form-select" asp-items="ViewBag.Sexes"></select>
+            <span asp-validation-for="Sex" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BreedId" class="form-label"
+                   style="font-family: 'Nunito', sans-serif; font-weight: 500; letter-spacing: 0.3px; font-size: 1rem;">Breed</label>
+            <select asp-for="BreedId" class="form-select" asp-items="@(ViewData["BreedId"] as SelectList)"></select>
+            <span asp-validation-for="BreedId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label"
+                   style="font-family: 'Nunito', sans-serif; font-weight: 500; letter-spacing: 0.3px; font-size: 1rem;"></label>
+            <select asp-for="Status" class="form-select" asp-items="ViewBag.Statuses"></select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        
+        <button type="submit" class="btn" style="background-color: #ff7f50; color: #fff;">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

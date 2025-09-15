@@ -1,0 +1,22 @@
+﻿@model DopAdoption.Domain.DomainModels.Dog
+@{
+    ViewData["Title"] = "Dog Details";
+}
+<div class="card card-dog mb-4">
+    <img src="https://placehold.co/1200x500?text=@Uri.EscapeDataString(Model.Breed?.Name ?? Model.Name)" class="card-img-top" alt="Dog" />
+    <div class="card-body">
+        <h3 class="title mb-2">@Model.Name</h3>
+        <p class="meta mb-1">Breed: @Model.Breed?.Name</p>
+        <p class="meta mb-1">Age: @Model.Age</p>
+        <p class="meta mb-1">Sex: @Model.Sex</p>
+        <span class="badge badge-status status-@Model.Status">@Model.Status</span>
+    </div>
+    <div class="card-footer bg-white d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-paw">Edit</a>
+        <a asp-action="Index" class="btn btn-paw">Back to List</a>
+        <form asp-action="MarkAsAdopted" asp-route-id="@Model.Id" method="post" class="ms-auto">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-paw" @(Model.Status == "Available" ? null : "disabled")>Mark as Adopted</button>
+        </form>
+    </div>
+</div>
