@@ -57,8 +57,12 @@ namespace DopAdoption.Service.Implementation
                         var b = raw.Split('-', StringSplitOptions.RemoveEmptyEntries);
                         if (b.Length > 0)
                         {
-                            dto.TypeOfDog = b[0];
-                            if (b.Length > 1) dto.DogVariety = string.Join(" ", b, 1, b.Length - 1);
+                            dto.TypeOfDog = dto.TypeOfDog = char.ToUpper(b[0][0]) + b[0].Substring(1);
+                            if (b.Length > 1)
+                            {
+                                var dv = string.Join(" ", b, 1, b.Length - 1);
+                                dto.DogVariety = char.ToUpper(dv[0]) + dv.Substring(1);
+                            }
                         }
                     }
                 }
