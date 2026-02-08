@@ -206,7 +206,7 @@ public class AdoptionApplicationsControllerTests
 
         _apps.Setup(s => s.Update(It.IsAny<AdoptionApplication>())).Throws(new Exception("fail"));
 
-        // ApplicationExists -> GetById(id) == null
+        
         _apps.Setup(s => s.GetById(id)).Returns((AdoptionApplication?)null);
 
         var res = _c.Edit(id, model);
@@ -222,7 +222,7 @@ public class AdoptionApplicationsControllerTests
 
         _apps.Setup(s => s.Update(It.IsAny<AdoptionApplication>())).Throws(new Exception("fail"));
 
-        // ApplicationExists -> GetById(id) != null
+        
         _apps.Setup(s => s.GetById(id)).Returns(new AdoptionApplication { Id = id });
 
         Assert.Throws<Exception>(() => _c.Edit(id, model));

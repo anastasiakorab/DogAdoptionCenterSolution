@@ -157,7 +157,7 @@ public class AdoptersControllerTests
         _adopters.Setup(s => s.Update(It.IsAny<Adopter>()))
                  .Throws(new DbUpdateConcurrencyException());
 
-        // AdopterExists -> GetById(id) returns null
+        
         _adopters.Setup(s => s.GetById(id)).Returns((Adopter?)null);
 
         var res = _c.Edit(id, model);
@@ -174,7 +174,7 @@ public class AdoptersControllerTests
         _adopters.Setup(s => s.Update(It.IsAny<Adopter>()))
                  .Throws(new DbUpdateConcurrencyException());
 
-        // AdopterExists -> GetById(id) returns not null
+        
         _adopters.Setup(s => s.GetById(id)).Returns(new Adopter { Id = id, FullName = "X", Email = "x@x.com" });
 
         Assert.Throws<DbUpdateConcurrencyException>(() => _c.Edit(id, model));
