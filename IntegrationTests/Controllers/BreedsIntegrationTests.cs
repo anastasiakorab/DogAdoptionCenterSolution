@@ -66,7 +66,7 @@ public class BreedsIntegrationTests
         Assert.That(post.StatusCode, Is.EqualTo(HttpStatusCode.Redirect));
 
         
-        using var scope = _factory.Services.CreateScope();
+        using var scope = _factory.Services.CreateScope(); // se kreira nov scope so cel da se pristapi do bazata
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         Assert.That(db.Breeds.Any(b => b.Name == "TestBreed"), Is.True);
@@ -118,8 +118,8 @@ public class BreedsIntegrationTests
     {
         if (!response.Headers.TryGetValues("Set-Cookie", out var cookies)) return;
 
-        var cookieHeader = string.Join("; ", cookies.Select(c => c.Split(';')[0]));
-        client.DefaultRequestHeaders.Remove("Cookie");
-        client.DefaultRequestHeaders.Add("Cookie", cookieHeader);
+        var cookieHeader = string.Join("; ", cookies.Select(c => c.Split(';')[0])); // ako ima povekje gi spojuva
+        client.DefaultRequestHeaders.Remove("Cookie"); // brishe ako ima star
+        client.DefaultRequestHeaders.Add("Cookie", cookieHeader); // go dodava noviot vo headerot
     }
 }

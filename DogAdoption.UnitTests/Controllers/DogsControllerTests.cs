@@ -48,30 +48,30 @@ public class DogsControllerTests
     }
 
     [Test]
-    public void Details_NullId_NotFound()
+    public void Details_NullId_NotFound() // nema id vrakjam 404 
         => Assert.That(_c.Details(null), Is.TypeOf<NotFoundResult>());
 
     [Test]
-    public void Details_NotFound_NotFound()
+    public void Details_NotFound_NotFound() // vnesuva id ama kuceto ne postoi
     {
         _dogs.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((Dog?)null);
         Assert.That(_c.Details(Guid.NewGuid()), Is.TypeOf<NotFoundResult>());
     }
 
     [Test]
-    public void Details_Found_View()
+    public void Details_Found_View()  // kuceto sto e vneseno postoi i se vrakja 
     {
         var dog = new Dog();
         _dogs.Setup(s => s.GetById(It.IsAny<Guid>())).Returns(dog);
 
-        var res = _c.Details(Guid.NewGuid()) as ViewResult;
+        var res = _c.Details(Guid.NewGuid()) as ViewResult; //kontrolerot vrakja dog
 
         Assert.That(res, Is.Not.Null);
-        Assert.That(res!.Model, Is.SameAs(dog));
+        Assert.That(res!.Model, Is.SameAs(dog)); // uspeva
     }
 
     [Test]
-    public void CreateGet_ReturnsView()
+    public void CreateGet_ReturnsView() // kontr vrakja lista na rasi iako e prazna
     {
         _breeds.Setup(s => s.GetAll()).Returns(new List<Breed>());
         Assert.That(_c.Create(), Is.TypeOf<ViewResult>());
@@ -92,7 +92,7 @@ public class DogsControllerTests
     [Test]
     public void CreatePost_Valid_Redirects()
     {
-        _dogs.Setup(s => s.Add(It.IsAny<Dog>())).Returns((Dog d) => d);
+        _dogs.Setup(s => s.Add(It.IsAny<Dog>())).Returns((Dog d) => d); // se vrkajat kuceto so e pobarano
 
         var res = _c.Create(new Dog { Name = "Rex", Age = 1 });
 
@@ -101,18 +101,18 @@ public class DogsControllerTests
     }
 
     [Test]
-    public void EditGet_NullId_NotFound()
+    public void EditGet_NullId_NotFound() // ako ne vnesam id 
         => Assert.That(_c.Edit(null), Is.TypeOf<NotFoundResult>());
 
     [Test]
-    public void EditGet_NotFound_NotFound()
+    public void EditGet_NotFound_NotFound() // ako kuce so takvo id ne postojt
     {
         _dogs.Setup(s => s.GetById(It.IsAny<Guid>())).Returns((Dog?)null);
         Assert.That(_c.Edit(Guid.NewGuid()), Is.TypeOf<NotFoundResult>());
     }
 
     [Test]
-    public void EditGet_Found_View()
+    public void EditGet_Found_View() // ako postojt takvo kuce
     {
         _breeds.Setup(s => s.GetAll()).Returns(new List<Breed>());
         _dogs.Setup(s => s.GetById(It.IsAny<Guid>())).Returns(new Dog());
@@ -216,7 +216,7 @@ public class DogsControllerTests
     }
 
     [Test]
-    public async Task ApiPing_Failure_500()
+    public async Task ApiPing_Failure_500() // ako padne api/snema internet status code = 500
     {
         _ext.Setup(s => s.GetRandomAsync()).ThrowsAsync(new Exception("x"));
 
